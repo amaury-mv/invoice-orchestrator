@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bindings version="2.1" xmlns="http://java.sun.com/xml/ns/jaxb">
+  <!--
+
+Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.3.2 
+Visite <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
+Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
+Generado el: 2023.11.04 a las 01:44:25 PM CST 
+
+  -->
+  <bindings scd="x-schema::tns" xmlns:tns="http://www.sat.gob.mx/cfd/4">
+    <schemaBindings map="false">
+      <package name="com.eis.invoiceorchestrator.utilities"/>
+    </schemaBindings>
+    <bindings scd="tns:Comprobante">
+      <class ref="com.eis.invoiceorchestrator.utilities.Comprobante"/>
+    </bindings>
+  </bindings>
+  <bindings scd="x-schema::tns" xmlns:tns="http://www.sat.gob.mx/CartaPorte20">
+    <schemaBindings map="false">
+      <package name="com.eis.invoiceorchestrator.utilities"/>
+    </schemaBindings>
+    <bindings scd="tns:CartaPorte">
+      <class ref="com.eis.invoiceorchestrator.utilities.CartaPorte"/>
+    </bindings>
+  </bindings>
+  <bindings scd="x-schema::tns" xmlns:tns="http://www.sat.gob.mx/Pagos20">
+    <schemaBindings map="false">
+      <package name="com.eis.invoiceorchestrator.utilities"/>
+    </schemaBindings>
+    <bindings scd="tns:Pagos">
+      <class ref="com.eis.invoiceorchestrator.utilities.Pagos"/>
+    </bindings>
+  </bindings>
+  <bindings scd="x-schema::tns" xmlns:tns="http://www.sat.gob.mx/ine">
+    <schemaBindings map="false">
+      <package name="com.eis.invoiceorchestrator.utilities"/>
+    </schemaBindings>
+    <bindings scd="tns:INE">
+      <class ref="com.eis.invoiceorchestrator.utilities.INE"/>
+    </bindings>
+  </bindings>
+  <bindings scd="x-schema::tns" xmlns:tns="http://www.sat.gob.mx/implocal">
+    <schemaBindings map="false">
+      <package name="com.eis.invoiceorchestrator.utilities"/>
+    </schemaBindings>
+    <bindings scd="tns:ImpuestosLocales">
+      <class ref="com.eis.invoiceorchestrator.utilities.ImpuestosLocales"/>
+    </bindings>
+  </bindings>
+  <bindings scd="x-schema::tns" xmlns:tns="http://www.sat.gob.mx/nomina12">
+    <schemaBindings map="false">
+      <package name="com.eis.invoiceorchestrator.utilities"/>
+    </schemaBindings>
+    <bindings scd="tns:Nomina">
+      <class ref="com.eis.invoiceorchestrator.utilities.Nomina"/>
+    </bindings>
+  </bindings>
+  <bindings scd="x-schema::tns" xmlns:tns="http://www.sat.gob.mx/leyendasFiscales">
+    <schemaBindings map="false">
+      <package name="com.eis.invoiceorchestrator.utilities"/>
+    </schemaBindings>
+    <bindings scd="tns:LeyendasFiscales">
+      <class ref="com.eis.invoiceorchestrator.utilities.LeyendasFiscales"/>
+    </bindings>
+  </bindings>
+  <bindings scd="x-schema::tns" xmlns:tns="http://www.sat.gob.mx/ComercioExterior11">
+    <schemaBindings map="false">
+      <package name="com.eis.invoiceorchestrator.utilities"/>
+    </schemaBindings>
+    <bindings scd="tns:ComercioExterior">
+      <class ref="com.eis.invoiceorchestrator.utilities.ComercioExterior"/>
+    </bindings>
+  </bindings>
+  <bindings scd="x-schema::tns" xmlns:tns="http://www.sat.gob.mx/donat">
+    <schemaBindings map="false">
+      <package name="com.eis.invoiceorchestrator.utilities"/>
+    </schemaBindings>
+    <bindings scd="tns:Donatarias">
+      <class ref="com.eis.invoiceorchestrator.utilities.Donatarias"/>
+    </bindings>
+  </bindings>
+  <bindings scd="x-schema::tns" xmlns:tns="http://www.sat.gob.mx/iedu">
+    <schemaBindings map="false">
+      <package name="com.eis.invoiceorchestrator.utilities"/>
+    </schemaBindings>
+    <bindings scd="tns:instEducativas">
+      <class ref="com.eis.invoiceorchestrator.utilities.InstEducativas"/>
+    </bindings>
+  </bindings>
+</bindings>
+

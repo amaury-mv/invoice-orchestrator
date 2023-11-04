@@ -1,16 +1,18 @@
 package com.eis.invoiceorchestrator;
 
 import com.eis.invoiceorchestrator.service.PDFService;
+import com.eis.invoiceorchestrator.service.XMLService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +21,8 @@ public class InvoiceOrchestratorApplication implements CommandLineRunner {
 
 	@Autowired
 	PDFService pdfService;
+	@Autowired
+	XMLService xmlService;
 	public static void main(String[] args) {
 		SpringApplication.run(InvoiceOrchestratorApplication.class, args);
 	}
@@ -32,14 +36,14 @@ public class InvoiceOrchestratorApplication implements CommandLineRunner {
 		cfdi.setConceptos(new CFDI.Conceptos(List.of(new CFDI.Conceptos.Concepto(new CFDI.Conceptos.Concepto.Impuestos(
 				new CFDI.Conceptos.Concepto.Impuestos.Traslados(
 						List.of(new CFDI.Conceptos.Concepto.Impuestos.Traslados.Traslado(new BigDecimal(3450),
-								"002","Tasa",new BigDecimal(0.16),new BigDecimal(45555)))),
+								"002","Tasa", BigDecimal.valueOf(0.16),new BigDecimal(45555)))),
 				new CFDI.Conceptos.Concepto.Impuestos.Retenciones(null)),null,null,null,null,null,"001100",null
 				,BigDecimal.ONE,"H24","PZA","Cargo por hospedaje 3 noches",new BigDecimal(4474),new BigDecimal(355555),
 				BigDecimal.ZERO,"01"))));
 
 		cfdi.setImpuestos(new CFDI.Impuestos(null,
 				new CFDI.Impuestos.Traslados(List.of(new CFDI.Impuestos.Traslados.Traslado(new BigDecimal(3399),"002",
-						"Tasa",new BigDecimal(0.16),new BigDecimal(3909)))),BigDecimal.ZERO,
+						"Tasa", BigDecimal.valueOf(0.16),new BigDecimal(3909)))),BigDecimal.ZERO,
 				new BigDecimal(3000)));
 
 		cfdi.setComplemento(new CFDI.Complemento(null, null,
@@ -62,14 +66,26 @@ public class InvoiceOrchestratorApplication implements CommandLineRunner {
 		cfdi.setSubTotal(new BigDecimal(78790));
 		cfdi.setDescuento(BigDecimal.ZERO);
 		cfdi.setMoneda("USD");
-		cfdi.setTipoCambio(new BigDecimal(18.64));
+		cfdi.setTipoCambio(BigDecimal.valueOf(18.64));
 		cfdi.setTotal(new BigDecimal(43555));
 		cfdi.setGranTotal(new BigDecimal(45545));
 		cfdi.setTipoDeComprobante("INGRESO");
 		cfdi.setMetodoPago("PPD");
 		cfdi.setLugarExpedicion("03420");
+		cfdi.setInformacionGlobal(new CFDI.InformacionGlobal("01","01",2022));
+		cfdi.setCfdiRelacionados(List.of(new CFDI.CfdiRelacionados(List.of(new CFDI.CfdiRelacionados.CfdiRelacionado("FFFFFFFF-5499-4265-A27A-1C5BCAC3AD10")),"01")));
+		cfdi.setCondicionesDePago("sin condicion");
+
+
 
 
 		Files.write(Path.of("./invoice.pdf"),pdfService.createPDFInvoice(cfdi));
+
+		System.out.println(xmlService.getXML(cfdi,null));
+	}
+
+	@Bean
+	public ModelMapper getModelMapper() {
+		return new ModelMapper();
 	}
 }
