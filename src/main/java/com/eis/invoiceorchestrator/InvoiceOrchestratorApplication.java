@@ -8,15 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+import reactivefeign.spring.config.EnableReactiveFeignClients;
 
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @SpringBootApplication
+@EnableReactiveFeignClients
 public class InvoiceOrchestratorApplication implements CommandLineRunner {
 
 	@Autowired
@@ -37,7 +41,7 @@ public class InvoiceOrchestratorApplication implements CommandLineRunner {
 				new CFDI.Conceptos.Concepto.Impuestos.Traslados(
 						List.of(new CFDI.Conceptos.Concepto.Impuestos.Traslados.Traslado(new BigDecimal(3450),
 								"002","Tasa", BigDecimal.valueOf(0.16),new BigDecimal(45555)))),
-				new CFDI.Conceptos.Concepto.Impuestos.Retenciones(null)),null,null,null,null,null,"001100",null
+				new CFDI.Conceptos.Concepto.Impuestos.Retenciones(null)),new CFDI.Conceptos.Concepto.ACuentaTerceros("xaxx","nombre","regimen","dd"),null,List.of(new CFDI.Conceptos.Concepto.CuentaPredial("1234"),new CFDI.Conceptos.Concepto.CuentaPredial("5555")),null,null,"001100",null
 				,BigDecimal.ONE,"H24","PZA","Cargo por hospedaje 3 noches",new BigDecimal(4474),new BigDecimal(355555),
 				BigDecimal.ZERO,"01"))));
 
@@ -75,13 +79,16 @@ public class InvoiceOrchestratorApplication implements CommandLineRunner {
 		cfdi.setInformacionGlobal(new CFDI.InformacionGlobal("01","01",2022));
 		cfdi.setCfdiRelacionados(List.of(new CFDI.CfdiRelacionados(List.of(new CFDI.CfdiRelacionados.CfdiRelacionado("FFFFFFFF-5499-4265-A27A-1C5BCAC3AD10")),"01")));
 		cfdi.setCondicionesDePago("sin condicion");
+		cfdi.getComplemento().setImpuestosLocales(new ArrayList<>());
+		cfdi.getComplemento().getImpuestosLocales().add(new CFDI.Complemento.ImpuestosLocales(null, List.of(new CFDI.Complemento.ImpuestosLocales.TrasladoLocal("ISH",BigDecimal.TEN,BigDecimal.TEN)), BigDecimal.ONE,BigDecimal.TEN));
+
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.writeValueAsString(cfdi);
 
 
-
-
-		Files.write(Path.of("./invoice.pdf"),pdfService.createPDFInvoice(cfdi));
-
-		System.out.println(xmlService.getXML(cfdi,null));
+//		Files.write(Path.of("./invoice.pdf"),pdfService.createPDFInvoice(cfdi));
+//
+//		System.out.println(xmlService.getXML(cfdi,null));
 	}
 
 	@Bean

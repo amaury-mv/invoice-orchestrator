@@ -34,7 +34,7 @@
     <!--
           En esta sección se define la inclusión de las demás plantillas de transformación para
           la generación de las cadenas originales de los complementos fiscales
-      -->
+
     <xsl:include href="classpath:xslt/donat11.xslt"/>
     <xsl:include href="classpath:xslt/divisas.xslt"/>
     <xsl:include href="classpath:xslt/implocal.xslt"/>
@@ -64,6 +64,8 @@
     <xsl:include href="classpath:xslt/IngresosHidrocarburos.xslt"/>
     <xsl:include href="classpath:xslt/CartaPorte20.xslt"/>
     <xsl:include href="classpath:xslt/Pagos20.xslt"/>
+
+    -->
 
     <!-- Aquí iniciamos el procesamiento de la cadena original con su | inicial y el terminador || -->
     <xsl:template match="/">|<xsl:apply-templates select="/cfdi:Comprobante"/>||
