@@ -19,6 +19,6 @@ public class InvoiceRouter {
     public RouterFunction<ServerResponse> route(InvoiceHandler invoiceHandler){
 
         return RouterFunctions.route(POST(path)
-                .and(accept(MediaType.APPLICATION_JSON)),invoiceHandler::createInvoice);
+                .and(accept(MediaType.APPLICATION_JSON)),invoiceHandler::handleRequest);
     }
 }

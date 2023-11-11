@@ -4,6 +4,7 @@ import com.eis.invoiceorchestrator.CFDI;
 import com.eis.invoiceorchestrator.model.CertificateData;
 import com.eis.invoiceorchestrator.utilities.Comprobante;
 import com.eis.invoiceorchestrator.utilities.DateUtil;
+import com.eis.invoiceorchestrator.utilities.ImpuestosLocales;
 import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
 import com.sun.xml.bind.v2.WellKnownNamespace;
 import org.apache.commons.ssl.PKCS8Key;
@@ -12,8 +13,8 @@ import org.modelmapper.config.Configuration;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
 
+import javax.validation.Valid;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.transform.Transformer;
@@ -23,7 +24,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.PrivateKey;
@@ -32,17 +32,17 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * Class to generate XML SAT from CFDI class
+ * Class to generate XML SAT from CFDI
  */
 @Service
 public class XMLService {
 
     private final ModelMapper modelMapper;
-
     private static final String CFDI_VERSION = "4.0";
     private static final String ALGORITHM_SHA256 = "SHA256withRSA";
     private static final String CERTIFICATE_TYPE = "X.509";
@@ -50,9 +50,9 @@ public class XMLService {
     private final Transformer transformer;
 
 
-    public XMLService(@Lazy ModelMapper modelMapper) throws TransformerConfigurationException, IOException {
+    public XMLService(@Lazy ModelMapper modelMapper) throws TransformerConfigurationException {
 
-        //URL url = getClass().getClassLoader().getResource(XSLT_LOCAL_RESOURCE);
+        //FIXME: Classpath include inside cadenaoriginal.xslt
         StreamSource streamSource = new StreamSource(getClass()
                 .getClassLoader().getResourceAsStream(XSLT_LOCAL_RESOURCE));
         this.transformer = TransformerFactory.newInstance().newTransformer(streamSource);
@@ -61,17 +61,35 @@ public class XMLService {
 
     public String getXML(CFDI cfdi, CertificateData certificateData) throws Exception {
 
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT)
-                .setFieldMatchingEnabled(true)
-                .setFieldAccessLevel(Configuration.AccessLevel.PROTECTED);
         Comprobante comprobante =  modelMapper.map(cfdi,Comprobante.class);
 //        FIXME: Definir excepciones
         comprobante.setFecha(Optional.ofNullable(cfdi.getFecha()).map(DateUtil::dateToXMLFormat).orElseThrow(()
                 -> new Exception()));
+
+        if(cfdi.getComplemento()!=null){
+            if(cfdi.getComplemento().getImpuestosLocales()!=null){
+
+                if(comprobante.getComplemento()==null){
+                    comprobante.setComplemento(new Comprobante.Complemento());
+                }
+
+                //FIXME
+                ImpuestosLocales impuestosLocales = new ImpuestosLocales();
+                impuestosLocales.setVersion("1.0");
+                impuestosLocales.setTotaldeRetenciones(cfdi.getComplemento().getImpuestosLocales().getTotaldeRetenciones());
+                impuestosLocales.setTotaldeTraslados(cfdi.getComplemento().getImpuestosLocales().getTotaldeTraslados());
+
+                comprobante.getComplemento().getImpuestosLocales().add(impuestosLocales);
+
+
+            }
+        }
         comprobante.setVersion(CFDI_VERSION);
-        comprobante.setNoCertificado(certificateData.getNumber());
+        comprobante.setNoCertificado(certificateData.getNumber());//30001000000400002444
         comprobante.setCertificado(getCertificateBase64(Base64.getDecoder().decode(certificateData.getBase64Cer())));
         comprobante.setSello(getDigitalStamp(comprobante,certificateData));
+
+
 
         return Base64.getEncoder().encodeToString(getXMLFromComprobante(comprobante));
 

@@ -3,7 +3,12 @@ package com.eis.invoiceorchestrator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -14,9 +19,11 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+//@Validated
 public class CFDI {
 
     private Emisor emisor;
+    @Valid
     private Receptor receptor;
     private InformacionGlobal informacionGlobal;
     private List<CfdiRelacionados> cfdiRelacionados;
@@ -26,6 +33,7 @@ public class CFDI {
     //    private Addenda addenda;
     private String serie;
     private String folio;
+    @NotNull
     private Date fecha;
     private String sello;
     private String formaPago;
@@ -38,6 +46,7 @@ public class CFDI {
     private BigDecimal tipoCambio;
     private BigDecimal total;
     private BigDecimal granTotal;
+    @NotNull
     private String tipoDeComprobante;
     private String exportacion;
     private String metodoPago;
@@ -49,13 +58,14 @@ public class CFDI {
 
     @Data
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Complemento {
 
         //private CartaPorte cartaPorte;
         //private Donatarias donatarias;
         private Pagos pagos;
         //private INE ine;
-        private List<ImpuestosLocales> impuestosLocales;
+        private ImpuestosLocales impuestosLocales;
         //private Nomina nomina;
         //private LeyendasFiscales leyendasFiscales;
         //private ComercioExterior comercioExterior;
@@ -63,6 +73,7 @@ public class CFDI {
 
         @Data
         @AllArgsConstructor
+        @NoArgsConstructor
         public static class TimbreFiscalDigital {
 
             private String version;
@@ -80,6 +91,7 @@ public class CFDI {
 
         @Data
         @AllArgsConstructor
+        @NoArgsConstructor
         public static class ImpuestosLocales {
 
 
@@ -90,6 +102,7 @@ public class CFDI {
 
             @Data
             @AllArgsConstructor
+            @NoArgsConstructor
             public static class RetencionLocal implements Serializable {
 
                 private String impuesto;
@@ -100,6 +113,7 @@ public class CFDI {
 
             @Data
             @AllArgsConstructor
+            @NoArgsConstructor
             public static class TrasladoLocal implements Serializable {
 
                 private String impuesto;
@@ -111,6 +125,7 @@ public class CFDI {
 
         @Data
         @AllArgsConstructor
+        @NoArgsConstructor
         public static class Pagos {
 
             private Totales totales;
@@ -118,6 +133,7 @@ public class CFDI {
 
             @Data
             @AllArgsConstructor
+            @NoArgsConstructor
             public static class Pago {
 
                 private List<DoctoRelacionado> doctoRelacionado;
@@ -140,6 +156,7 @@ public class CFDI {
 
                 @Data
                 @AllArgsConstructor
+                @NoArgsConstructor
                 public static class ImpuestosP {
 
                     private RetencionesP retencionesP;
@@ -147,12 +164,14 @@ public class CFDI {
 
                     @Data
                     @AllArgsConstructor
+                    @NoArgsConstructor
                     public static class TrasladosP {
 
                         private List<TrasladoP> trasladoP;
 
                         @Data
                         @AllArgsConstructor
+                        @NoArgsConstructor
                         public static class TrasladoP {
 
                             private BigDecimal baseP;
@@ -166,12 +185,14 @@ public class CFDI {
 
                     @Data
                     @AllArgsConstructor
+                    @NoArgsConstructor
                     public static class RetencionesP {
 
                         private List<RetencionP> retencionP;
 
                         @Data
                         @AllArgsConstructor
+                        @NoArgsConstructor
                         public static class RetencionP {
 
                             private String impuestoP;
@@ -184,6 +205,7 @@ public class CFDI {
 
                 @Data
                 @AllArgsConstructor
+                @NoArgsConstructor
                 public static class DoctoRelacionado {
 
                     private ImpuestosDR impuestosDR;
@@ -199,6 +221,7 @@ public class CFDI {
                     private String objetoImpDR;
 
                     @AllArgsConstructor
+                    @NoArgsConstructor
                     @Data
                     public static class ImpuestosDR {
 
@@ -207,12 +230,14 @@ public class CFDI {
 
                         @Data
                         @AllArgsConstructor
+                        @NoArgsConstructor
                         public static class TrasladosDR {
 
                             private List<TrasladoDR> trasladoDR;
 
                             @Data
                             @AllArgsConstructor
+                            @NoArgsConstructor
                             public static class TrasladoDR {
 
                                 private BigDecimal baseDR;
@@ -225,6 +250,7 @@ public class CFDI {
                         }
 
                         @AllArgsConstructor
+                        @NoArgsConstructor
                         @Data
                         public static class RetencionesDR {
 
@@ -232,6 +258,7 @@ public class CFDI {
 
                             @Data
                             @AllArgsConstructor
+                            @NoArgsConstructor
                             public static class RetencionDR {
 
                                 private BigDecimal baseDR;
@@ -250,6 +277,7 @@ public class CFDI {
 
             @Data
             @AllArgsConstructor
+            @NoArgsConstructor
             public static class Totales {
 
                 private BigDecimal totalRetencionesIVA;
@@ -269,6 +297,7 @@ public class CFDI {
 
     @Data
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Impuestos {
 
         private Retenciones retenciones;
@@ -277,6 +306,7 @@ public class CFDI {
         private BigDecimal totalImpuestosTrasladados;
 
         @AllArgsConstructor
+        @NoArgsConstructor
         @Data
         public static class Traslados {
 
@@ -284,6 +314,7 @@ public class CFDI {
 
             @Data
             @AllArgsConstructor
+            @NoArgsConstructor
             public static class Traslado {
 
                 private BigDecimal base;
@@ -296,12 +327,14 @@ public class CFDI {
         }
 
         @AllArgsConstructor
+        @NoArgsConstructor
         @Data
         public static class Retenciones {
 
             private List<Retencion> retencion;
 
             @AllArgsConstructor
+            @NoArgsConstructor
             @Data
             public static class Retencion {
 
@@ -314,12 +347,14 @@ public class CFDI {
 
     @Data
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Conceptos {
 
         private List<Concepto> concepto;
 
         @Data
         @AllArgsConstructor
+        @NoArgsConstructor
         public static class Concepto {
 
 
@@ -342,6 +377,7 @@ public class CFDI {
 
             @Data
             @AllArgsConstructor
+            @NoArgsConstructor
             public static class Parte {
 
                 private List<InformacionAduanera> informacionAduanera;
@@ -356,11 +392,13 @@ public class CFDI {
 
             @Data
             @AllArgsConstructor
+            @NoArgsConstructor
             public static class ComplementoConcepto {
 
                 private InstEducativas instEducativas;
 
                 @AllArgsConstructor
+                @NoArgsConstructor
                 @Data
                 public class InstEducativas {
 
@@ -375,12 +413,14 @@ public class CFDI {
 
             @Data
             @AllArgsConstructor
+            @NoArgsConstructor
             public static class CuentaPredial {
                 private String numero;
             }
 
             @Data
             @AllArgsConstructor
+            @NoArgsConstructor
             public static class InformacionAduanera {
 
                 private String numeroPedimento;
@@ -388,6 +428,7 @@ public class CFDI {
 
             @Data
             @AllArgsConstructor
+            @NoArgsConstructor
             public static class ACuentaTerceros {
 
                 private String rfcACuentaTerceros;
@@ -398,6 +439,7 @@ public class CFDI {
 
             @Data
             @AllArgsConstructor
+            @NoArgsConstructor
             public static class Impuestos {
 
                 private Traslados traslados;
@@ -405,12 +447,14 @@ public class CFDI {
 
                 @Data
                 @AllArgsConstructor
+                @NoArgsConstructor
                 public static class Retenciones {
 
                     private List<Retencion> retencion;
 
                     @Data
                     @AllArgsConstructor
+                    @NoArgsConstructor
                     public static class Retencion {
 
                         private BigDecimal base;
@@ -423,12 +467,14 @@ public class CFDI {
 
                 @Data
                 @AllArgsConstructor
+                @NoArgsConstructor
                 public static class Traslados {
 
                     private List<Traslado> traslado;
 
                     @Data
                     @AllArgsConstructor
+                    @NoArgsConstructor
                     public static class Traslado {
 
                         private BigDecimal base;
@@ -449,15 +495,36 @@ public class CFDI {
 
     @Data
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Receptor {
 
+        @Pattern(regexp = "[A-Z&Ñ]{3,4}[0-9]{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])[A-Z0-9]{2}[0-9A]", message = "El RFC no cumple con el formato")
         private String rfc;
+        @Pattern(regexp = "[^|]{1,300}")
         private String nombre;
+        @NotNull
+        @NotBlank
         private String domicilioFiscalReceptor;
         private String residenciaFiscal;
         private String numRegIdTrib;
         private String regimenFiscalReceptor;
+        @NotNull
+        @NotBlank
         private String usoCFDI;
+        private List<Email> email;
+
+        @Data
+        @AllArgsConstructor
+        @NoArgsConstructor
+        @Valid
+        public static class Email{
+
+            @javax.validation.constraints.Email
+            private String email;
+            @NotNull
+            @NotBlank
+            private String type;
+        }
     }
 
 
@@ -466,6 +533,7 @@ public class CFDI {
      */
     @Data
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Emisor {
 
         private String rfc;
@@ -476,12 +544,14 @@ public class CFDI {
 
     @Data
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class CfdiRelacionados {
         private List<CfdiRelacionado> cfdiRelacionado;
         private String tipoRelacion;
 
         @Data
         @AllArgsConstructor
+        @NoArgsConstructor
         public static class CfdiRelacionado {
             private String uuid;
         }
@@ -490,6 +560,7 @@ public class CFDI {
 
     @Data
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class InformacionGlobal {
 
         private String periodicidad;

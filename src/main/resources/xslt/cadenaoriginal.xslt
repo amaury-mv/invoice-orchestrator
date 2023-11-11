@@ -30,42 +30,42 @@
     <!--
           En esta sección se define la inclusión de las plantillas de utilerías para colapsar espacios
       -->
-    <xsl:include href="classpath:xslt/utilerias.xslt"/>
+    <xsl:include href="src/main/resources/xslt/utilerias.xslt"/>
     <!--
           En esta sección se define la inclusión de las demás plantillas de transformación para
-          la generación de las cadenas originales de los complementos fiscales
+          la generación de las cadenas originales de los complementos fiscales -->
 
-    <xsl:include href="classpath:xslt/donat11.xslt"/>
-    <xsl:include href="classpath:xslt/divisas.xslt"/>
-    <xsl:include href="classpath:xslt/implocal.xslt"/>
-    <xsl:include href="classpath:xslt/leyendasFisc.xslt"/>
-    <xsl:include href="classpath:xslt/pfic.xslt"/>
-    <xsl:include href="classpath:xslt/TuristaPasajeroExtranjero.xslt"/>
-    <xsl:include href="classpath:xslt/nomina12.xslt"/>
-    <xsl:include href="classpath:xslt/cfdiregistrofiscal.xslt"/>
-    <xsl:include href="classpath:xslt/pagoenespecie.xslt"/>
-    <xsl:include href="classpath:xslt/aerolineas.xslt"/>
-    <xsl:include href="classpath:xslt/valesdedespensa.xslt"/>
-    <xsl:include href="classpath:xslt/consumodeCombustibles11.xslt"/>
-    <xsl:include href="classpath:xslt/notariospublicos.xslt"/>
-    <xsl:include href="classpath:xslt/vehiculousado.xslt"/>
-    <xsl:include href="classpath:xslt/servicioparcialconstruccion.xslt"/>
-    <xsl:include href="classpath:xslt/renovacionysustitucionvehiculos.xslt"/>
-    <xsl:include href="classpath:xslt/certificadodedestruccion.xslt"/>
-    <xsl:include href="classpath:xslt/obrasarteantiguedades.xslt"/>
-    <xsl:include href="classpath:xslt/ComercioExterior11.xslt"/>
-    <xsl:include href="classpath:xslt/ine11.xslt"/>
-    <xsl:include href="classpath:xslt/iedu.xslt"/>
-    <xsl:include href="classpath:xslt/ventavehiculos11.xslt"/>
-    <xsl:include href="classpath:xslt/detallista.xslt"/>
-    <xsl:include href="classpath:xslt/ecc12.xslt"/>
-    <xsl:include href="classpath:xslt/consumodeCombustibles11.xslt"/>
-    <xsl:include href="classpath:xslt/GastosHidrocarburos10.xslt"/>
-    <xsl:include href="classpath:xslt/IngresosHidrocarburos.xslt"/>
-    <xsl:include href="classpath:xslt/CartaPorte20.xslt"/>
-    <xsl:include href="classpath:xslt/Pagos20.xslt"/>
+    <xsl:include href="src/main/resources/xslt/donat11.xslt"/>
+    <xsl:include href="src/main/resources/xslt/divisas.xslt"/>
+    <xsl:include href="src/main/resources/xslt/implocal.xslt"/>
+    <xsl:include href="src/main/resources/xslt/leyendasFisc.xslt"/>
+    <xsl:include href="src/main/resources/xslt/pfic.xslt"/>
+    <xsl:include href="src/main/resources/xslt/TuristaPasajeroExtranjero.xslt"/>
+    <xsl:include href="src/main/resources/xslt/nomina12.xslt"/>
+    <xsl:include href="src/main/resources/xslt/cfdiregistrofiscal.xslt"/>
+    <xsl:include href="src/main/resources/xslt/pagoenespecie.xslt"/>
+    <xsl:include href="src/main/resources/xslt/aerolineas.xslt"/>
+    <xsl:include href="src/main/resources/xslt/valesdedespensa.xslt"/>
+    <xsl:include href="src/main/resources/xslt/consumodeCombustibles11.xslt"/>
+    <xsl:include href="src/main/resources/xslt/notariospublicos.xslt"/>
+    <xsl:include href="src/main/resources/xslt/vehiculousado.xslt"/>
+    <xsl:include href="src/main/resources/xslt/servicioparcialconstruccion.xslt"/>
+    <xsl:include href="src/main/resources/xslt/renovacionysustitucionvehiculos.xslt"/>
+    <xsl:include href="src/main/resources/xslt/certificadodedestruccion.xslt"/>
+    <xsl:include href="src/main/resources/xslt/obrasarteantiguedades.xslt"/>
+    <xsl:include href="src/main/resources/xslt/ComercioExterior11.xslt"/>
+    <xsl:include href="src/main/resources/xslt/ine11.xslt"/>
+    <xsl:include href="src/main/resources/xslt/iedu.xslt"/>
+    <xsl:include href="src/main/resources/xslt/ventavehiculos11.xslt"/>
+    <xsl:include href="src/main/resources/xslt/detallista.xslt"/>
+    <xsl:include href="src/main/resources/xslt/ecc12.xslt"/>
+    <xsl:include href="src/main/resources/xslt/consumodeCombustibles11.xslt"/>
+    <xsl:include href="src/main/resources/xslt/GastosHidrocarburos10.xslt"/>
+    <xsl:include href="src/main/resources/xslt/IngresosHidrocarburos.xslt"/>
+    <xsl:include href="src/main/resources/xslt/CartaPorte20.xslt"/>
+    <xsl:include href="src/main/resources/xslt/Pagos20.xslt"/>
 
-    -->
+   
 
     <!-- Aquí iniciamos el procesamiento de la cadena original con su | inicial y el terminador || -->
     <xsl:template match="/">|<xsl:apply-templates select="/cfdi:Comprobante"/>||
