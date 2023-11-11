@@ -24,7 +24,8 @@ public class AdvansServiceImpl implements PACService{
         //FIXME: Recuperar el Request ID de MDC
         String requestId = UUID.randomUUID().toString();
         log.info("Request ID {} XML {}",requestId,xml);
-        String token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJ0TDNlNnlQV3Z4RWJnYVNyS1Vmelc1TlQyNkVaNHhiRjJOOGFFV0g1Iiwic3ViIjoiTmV4dCBUZWNobm9sb2dpZXMgW1NUQUdFXSIsImlzcyI6IkVNSVRFIFtTVEFHRV0iLCJhdWQiOiJCRU5HQUxBIFtTVEFHRV0ifQ.T4hgD3qsYjyWSMwB75ptbrBMQzTrKvVM3X9Cz4W-BQ8";
+
+        String token = "";
         return advansClient.getXMLSigned(PacEmiteRequest.builder().xml(xml).build(), requestId, token).
                 map(PacEmiteResponse::getXml);
     }
