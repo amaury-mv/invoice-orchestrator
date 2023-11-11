@@ -24,7 +24,7 @@ public class EmiteServiceImpl implements PACService{
         //FIXME: Recuperar el Request ID de MDC
         String requestId = UUID.randomUUID().toString();
         log.info("Request ID {} XML {}",requestId,xml);
-        String token = "";
+        String token = "emite-token";
         return emiteClient.getXMLSigned(PacEmiteRequest.builder().xml(xml).build(), requestId, token).
                 map(PacEmiteResponse::getXml);
     }
